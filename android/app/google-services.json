@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "411828519740",
+    "project_id": "chat-app-15750",
+    "storage_bucket": "chat-app-15750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411828519740:android:21e910e8e03f8a8b695439",
+        "android_client_info": {
+          "package_name": "com.nezar.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411828519740-pkk3ejbj4kus3ikc0vvsr31s360uk5so.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDftwycVl6ZXugRlQSZvz5qJi2JlOXE6fE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411828519740-pkk3ejbj4kus3ikc0vvsr31s360uk5so.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
