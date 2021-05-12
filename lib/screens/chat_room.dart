@@ -5,6 +5,7 @@ import 'package:chat_app/screens/sign_in.dart';
 import 'package:chat_app/services/auth.dart';
 import 'package:chat_app/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'conversation_screen.dart';
 import 'info_screen.dart';
 
@@ -101,7 +102,13 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${Info.myName}"),
+        title: Text(
+          "${Info.myName}",
+          style: TextStyle(
+              color: useWhiteForeground(Theme.of(context).primaryColor)
+                  ? Colors.white
+                  : Colors.black),
+        ),
         leading: Padding(
           padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
           child: InkWell(
@@ -123,21 +130,26 @@ class _ChatRoomState extends State<ChatRoom> {
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.person_add, color: Colors.white),
+            icon: Icon(Icons.person_add,
+                color: useWhiteForeground(Theme.of(context).primaryColor)
+                    ? Colors.white
+                    : Colors.black),
             onPressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (_) => SearchScreen()));
             },
           ),
           IconButton(
-            icon: Icon(Icons.logout, color: Colors.white),
+            icon: Icon(Icons.logout,
+                color: useWhiteForeground(Theme.of(context).primaryColor)
+                    ? Colors.white
+                    : Colors.black),
             onPressed: () {
               showDialog(
                   context: context,
                   builder: (ctx) => AlertDialog(
                         title: Text(
                           "LogOut",
-                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -160,7 +172,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                     },
                                     child: Text("logout")),
                                 ElevatedButton(
-                                    onPressed: () => Navigator.pop(context),
+                                    onPressed: () => Navigator.pop(ctx),
                                     child: Text("close"))
                               ],
                             )
@@ -171,7 +183,7 @@ class _ChatRoomState extends State<ChatRoom> {
           ),
         ],
       ),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: Column(
         children: [
           Container(
@@ -187,12 +199,16 @@ class _ChatRoomState extends State<ChatRoom> {
             alignment: Alignment.center,
             child: Text(
               "Chats",
-              style: TextStyle(fontSize: 25, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 25,
+                  color: useWhiteForeground(Theme.of(context).primaryColor)
+                      ? Colors.white
+                      : Colors.black),
             ),
           ),
           Expanded(
             child: Container(
-              color: Colors.white,
+              // color: Colors.white,
               child: chatRoomList(),
             ),
           ),

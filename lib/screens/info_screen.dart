@@ -2,6 +2,7 @@ import 'package:chat_app/constants/Info.dart';
 import 'package:chat_app/helper/myProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class UserInfo extends StatefulWidget {
   final herotag;
@@ -13,7 +14,9 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  var _sval=false;
+  Color _color = Colors.purple;
+  // void changeColor(Color color)=>setState(()=>_color=color);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,9 +28,21 @@ class _UserInfoState extends State<UserInfo> {
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
+                color: useWhiteForeground(Theme.of(context).primaryColor)
+                    ? Colors.white
+                    : Colors.black,
               ),
               onPressed: () => Navigator.pop(context)),
-          actions: [IconButton(icon: Icon(Icons.edit), onPressed: () {})],
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  color: useWhiteForeground(Theme.of(context).primaryColor)
+                      ? Colors.white
+                      : Colors.black,
+                ),
+                onPressed: () {})
+          ],
         ),
         body: Stack(
           children: [
@@ -62,10 +77,12 @@ class _UserInfoState extends State<UserInfo> {
                       Text(
                         "${Info.myName}",
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: useWhiteForeground(
+                                    Theme.of(context).primaryColor)
+                                ? Colors.white
+                                : Colors.black),
                       ),
                     ],
                   ),
@@ -75,24 +92,59 @@ class _UserInfoState extends State<UserInfo> {
                     child: ListView(
                       padding: EdgeInsets.only(top: 0),
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("dark mode"),
-                              Switch(
-                                  value: Provider.of<MyProvider>(context).swVal,
-                                  onChanged: (bool val)=>Provider.of<MyProvider>(context,listen:false).switchChange(val),
-                                  activeColor: Theme.of(context).primaryColor,
-                                  inactiveThumbColor: Colors.pink,
-                                ),
-                            ],
+                        ListTile(
+                          title: Text("Dark Mode"),
+                          trailing: Switch(
+                            value: Provider.of<MyProvider>(context).swVal,
+                            onChanged: (bool val) =>
+                                Provider.of<MyProvider>(context, listen: false)
+                                    .switchChange(val),
+                            activeColor: Theme.of(context).primaryColor,
+                            inactiveThumbColor: Colors.black,
                           ),
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
+                        ),
+                        ListTile(
+                          title: Text("Change Color"),
+                          trailing: CircleAvatar(
+                            backgroundColor:
+                                Provider.of<MyProvider>(context, listen: false)
+                                    .prColor,
+                          ),
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (ctx) {
+                                  return AlertDialog(
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SingleChildScrollView(
+                                          child: BlockPicker(
+                                            pickerColor:
+                                                Provider.of<MyProvider>(context,
+                                                        listen: false)
+                                                    .prColor,
+                                            onColorChanged: (color) =>
+                                                Provider.of<MyProvider>(context,
+                                                        listen: false)
+                                                    .changeColor(color),
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          child: Text("close"),
+                                          onPressed: () => Navigator.pop(ctx),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                });
+                          },
+                        ),
+                        Divider(
+                          thickness: 2,
                         ),
                         ListTile(
                           title: Text("koko"),
@@ -100,7 +152,6 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
                         ),
                         ListTile(
                           title: Text("koko"),
@@ -108,7 +159,6 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
                         ),
                         ListTile(
                           title: Text("koko"),
@@ -116,7 +166,6 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
                         ),
                         ListTile(
                           title: Text("koko"),
@@ -124,7 +173,6 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
                         ),
                         ListTile(
                           title: Text("koko"),
@@ -132,7 +180,6 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
                         ),
                         ListTile(
                           title: Text("koko"),
@@ -140,7 +187,6 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
                         ),
                         ListTile(
                           title: Text("koko"),
@@ -148,15 +194,6 @@ class _UserInfoState extends State<UserInfo> {
                         ),
                         Divider(
                           thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                        ListTile(
-                          title: Text("koko"),
-                          onTap: () {},
-                        ),
-                        Divider(
-                          thickness: 2,
-                          color: Colors.black.withOpacity(0.3),
                         ),
                       ],
                     ),

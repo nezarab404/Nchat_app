@@ -1,10 +1,9 @@
-import 'package:chat_app/helper/sharedPreferencesHelper.dart';
 import 'package:flutter/material.dart';
 
 class MyProvider with ChangeNotifier{
   ThemeMode tm = ThemeMode.light;
   bool swVal = false;
-  bool isLoggedIn = false;
+  Color prColor = Colors.blueAccent;
 
   void switchChange(bool val){
     swVal = val;
@@ -19,12 +18,9 @@ class MyProvider with ChangeNotifier{
     notifyListeners();
   }
 
-   getLoggingInState() async {
-    await ShPHelper.getUserLoggedInShP().then((value) => {
-          print("koko sh p value $value"),
-          value != null ? isLoggedIn = value : isLoggedIn = false
-        });
+  void changeColor(Color color){
+    prColor=color;
     notifyListeners();
-    
   }
+
 }

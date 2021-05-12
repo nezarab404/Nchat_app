@@ -1,6 +1,7 @@
 import 'package:chat_app/constants/Info.dart';
 import 'package:chat_app/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
 
 class ConversationScreen extends StatefulWidget {
@@ -50,7 +51,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                   reverse: true,
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
-                  return MessageTail(
+                    return MessageTail(
                         snapshot.data.docs[index]["message"],
                         snapshot.data.docs[index]["sendBy"] == Info.myName,
                         snapshot.data.docs[index]["time"]);
@@ -63,10 +64,15 @@ class _ConversationScreenState extends State<ConversationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.partnerName),
+        title: Text(
+          widget.partnerName,
+          style: TextStyle(
+              color: useWhiteForeground(Theme.of(context).primaryColor)
+                  ? Colors.white
+                  : Colors.black),
+        ),
         centerTitle: true,
         elevation: 0.0,
-        
       ),
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
@@ -119,19 +125,17 @@ class _ConversationScreenState extends State<ConversationScreen> {
               margin: EdgeInsets.only(right: 15, left: 15),
               padding: EdgeInsets.only(left: 15),
               decoration: BoxDecoration(
-                color:Colors.white,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.fromBorderSide(
-                  BorderSide(color:Theme.of(context).primaryColor, width: 2),
+                  BorderSide(color: Theme.of(context).primaryColor, width: 2),
                 ),
               ),
               child: TextField(
                 controller: _message,
-                
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "type your message...",
-                  
                 ),
               ),
             ),
@@ -166,9 +170,9 @@ class MessageTail extends StatelessWidget {
   final String message;
   final bool isSendByMe;
   final time;
-  var  x;
+  var x;
 
-  MessageTail(this.message, this.isSendByMe, this.time){
+  MessageTail(this.message, this.isSendByMe, this.time) {
     x = DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(time));
   }
   @override
@@ -211,8 +215,7 @@ class MessageTail extends StatelessWidget {
             Text(
               "$x",
               style: TextStyle(
-                  fontSize: 9,
-                  color: isSendByMe ? Colors.black : Colors.white),
+                  fontSize: 9, color: isSendByMe ? Colors.black : Colors.white),
             ),
           ],
         ),
